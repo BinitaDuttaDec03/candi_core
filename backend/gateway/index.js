@@ -1,5 +1,6 @@
 import express from "express"
 import dotenv from "dotenv"
+import proxy from "express-http-proxy"
 
 dotenv.config()
 
@@ -8,8 +9,10 @@ const app = express()
 const PORT = process.env.PORT || 6000
 
 app.get("/", (req, res) => {
-    console.log("👋 Hello from gateway!")
+    res.send("👋 Hello from gateway!")
 })
+
+app.use("/api/auth", proxy(process.env.AUTH_SERVICE_URL))
 
 app.listen(PORT, () => {
     console.log(`Gateway is running on port ${PORT}`)

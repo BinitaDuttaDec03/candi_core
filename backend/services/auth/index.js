@@ -1,6 +1,8 @@
 import express from "express"
 import dotenv from "dotenv"
 
+import connectDB from "./configs/db.config.js"
+
 dotenv.config()
 
 const app = express()
@@ -13,4 +15,5 @@ app.get("/", (req, res) => {
 
 app.listen(PORT, () => {
     console.log(`Auth service is running on port ${PORT}`)
+    connectDB()
 })

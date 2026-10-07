@@ -2,6 +2,7 @@ import { getAuth } from "firebase-admin/auth";
 
 import { app } from "../configs/firebase.config";
 import User from "../models/user.model";
+import redis from "../../../shared/redis/redis";
 
 export const googleAuth = async (req, res) => {
     try {
@@ -30,6 +31,13 @@ export const googleAuth = async (req, res) => {
             sameSite: "strict",
             maxAge: 7 * 24 * 60 * 60 * 1000
         })
+
+        await redis.set(`session:${sessionId}`, JSON.stringify({
+            userId: user._id,
+            name: user.name,
+            email: user.email,
+            interviewCoins: user.interviewCoins
+        }), "EX", 7 * 24 * 60 * 60)
 
         return res.status(200).json({ success: true, user })
     } catch (error) {

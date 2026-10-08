@@ -1,8 +1,8 @@
 import { getAuth } from "firebase-admin/auth";
 
-import { app } from "../configs/firebase.config";
-import User from "../models/user.model";
-import redis from "../../../shared/redis/redis";
+import { app } from "../configs/firebase.config.js";
+import User from "../models/user.model.js";
+import redis from "../../../shared/redis/redis.js";
 
 export const googleAuth = async (req, res) => {
     try {

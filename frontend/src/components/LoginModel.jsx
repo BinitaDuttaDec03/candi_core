@@ -14,7 +14,7 @@ function LoginModel({ onClose }) {
 
             const response = await api.post("/api/auth/login", { token })
 
-            setUser(response?.data?.user)
+            console.log(response?.data?.user)
             onClose()
         } catch (error) {
             console.log(error)
